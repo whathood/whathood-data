@@ -10,37 +10,35 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- Name: whathood; Type: SCHEMA; Schema: -; Owner: jim
+-- Name: whathood; Type: SCHEMA; Schema: -; Owner: -
 --
 
 CREATE SCHEMA whathood;
 
 
-ALTER SCHEMA whathood OWNER TO jim;
-
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
 --
--- Name: postgis; Type: EXTENSION; Schema: -; Owner: 
+-- Name: postgis; Type: EXTENSION; Schema: -; Owner: -
 --
 
 CREATE EXTENSION IF NOT EXISTS postgis WITH SCHEMA public;
 
 
 --
--- Name: EXTENSION postgis; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION postgis; Type: COMMENT; Schema: -; Owner: -
 --
 
 COMMENT ON EXTENSION postgis IS 'PostGIS geometry, geography, and raster spatial types and functions';
@@ -49,7 +47,7 @@ COMMENT ON EXTENSION postgis IS 'PostGIS geometry, geography, and raster spatial
 SET search_path = public, pg_catalog;
 
 --
--- Name: contentious_point_type; Type: TYPE; Schema: public; Owner: jim
+-- Name: contentious_point_type; Type: TYPE; Schema: public; Owner: -
 --
 
 CREATE TYPE contentious_point_type AS (
@@ -60,10 +58,8 @@ CREATE TYPE contentious_point_type AS (
 );
 
 
-ALTER TYPE public.contentious_point_type OWNER TO jim;
-
 --
--- Name: create_neighborhood_polygons_return_type; Type: TYPE; Schema: public; Owner: jim
+-- Name: create_neighborhood_polygons_return_type; Type: TYPE; Schema: public; Owner: -
 --
 
 CREATE TYPE create_neighborhood_polygons_return_type AS (
@@ -75,10 +71,8 @@ CREATE TYPE create_neighborhood_polygons_return_type AS (
 );
 
 
-ALTER TYPE public.create_neighborhood_polygons_return_type OWNER TO jim;
-
 --
--- Name: holder; Type: TYPE; Schema: public; Owner: jim
+-- Name: holder; Type: TYPE; Schema: public; Owner: -
 --
 
 CREATE TYPE holder AS (
@@ -88,10 +82,8 @@ CREATE TYPE holder AS (
 );
 
 
-ALTER TYPE public.holder OWNER TO jim;
-
 --
--- Name: merge_user_polygon_res_holder; Type: TYPE; Schema: public; Owner: jim
+-- Name: merge_user_polygon_res_holder; Type: TYPE; Schema: public; Owner: -
 --
 
 CREATE TYPE merge_user_polygon_res_holder AS (
@@ -102,10 +94,8 @@ CREATE TYPE merge_user_polygon_res_holder AS (
 );
 
 
-ALTER TYPE public.merge_user_polygon_res_holder OWNER TO jim;
-
 --
--- Name: neighborhood_counts_by_point_result; Type: TYPE; Schema: public; Owner: jim
+-- Name: neighborhood_counts_by_point_result; Type: TYPE; Schema: public; Owner: -
 --
 
 CREATE TYPE neighborhood_counts_by_point_result AS (
@@ -115,10 +105,8 @@ CREATE TYPE neighborhood_counts_by_point_result AS (
 );
 
 
-ALTER TYPE public.neighborhood_counts_by_point_result OWNER TO jim;
-
 --
--- Name: neighborhood_heat_map_type; Type: TYPE; Schema: public; Owner: jim
+-- Name: neighborhood_heat_map_type; Type: TYPE; Schema: public; Owner: -
 --
 
 CREATE TYPE neighborhood_heat_map_type AS (
@@ -129,10 +117,8 @@ CREATE TYPE neighborhood_heat_map_type AS (
 );
 
 
-ALTER TYPE public.neighborhood_heat_map_type OWNER TO jim;
-
 --
--- Name: polygon_counts_result; Type: TYPE; Schema: public; Owner: jim
+-- Name: polygon_counts_result; Type: TYPE; Schema: public; Owner: -
 --
 
 CREATE TYPE polygon_counts_result AS (
@@ -147,10 +133,8 @@ CREATE TYPE polygon_counts_result AS (
 );
 
 
-ALTER TYPE public.polygon_counts_result OWNER TO jim;
-
 --
--- Name: select_neighborhood_points_type; Type: TYPE; Schema: public; Owner: jim
+-- Name: select_neighborhood_points_type; Type: TYPE; Schema: public; Owner: -
 --
 
 CREATE TYPE select_neighborhood_points_type AS (
@@ -162,10 +146,8 @@ CREATE TYPE select_neighborhood_points_type AS (
 );
 
 
-ALTER TYPE public.select_neighborhood_points_type OWNER TO jim;
-
 --
--- Name: select_np_up_type; Type: TYPE; Schema: public; Owner: jim
+-- Name: select_np_up_type; Type: TYPE; Schema: public; Owner: -
 --
 
 CREATE TYPE select_np_up_type AS (
@@ -174,12 +156,10 @@ CREATE TYPE select_np_up_type AS (
 );
 
 
-ALTER TYPE public.select_np_up_type OWNER TO jim;
-
 SET search_path = whathood, pg_catalog;
 
 --
--- Name: neighborhood_counts_by_point_result; Type: TYPE; Schema: whathood; Owner: jim
+-- Name: neighborhood_counts_by_point_result; Type: TYPE; Schema: whathood; Owner: -
 --
 
 CREATE TYPE neighborhood_counts_by_point_result AS (
@@ -189,12 +169,10 @@ CREATE TYPE neighborhood_counts_by_point_result AS (
 );
 
 
-ALTER TYPE whathood.neighborhood_counts_by_point_result OWNER TO jim;
-
 SET search_path = public, pg_catalog;
 
 --
--- Name: associate_np_w_up(integer); Type: FUNCTION; Schema: public; Owner: jim
+-- Name: associate_np_w_up(integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION associate_np_w_up(_create_event_id integer) RETURNS void
@@ -226,10 +204,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.associate_np_w_up(_create_event_id integer) OWNER TO jim;
-
 --
--- Name: associate_test_points_w_user_polygons(integer); Type: FUNCTION; Schema: public; Owner: jim
+-- Name: associate_test_points_w_user_polygons(integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION associate_test_points_w_user_polygons(test_point_set_num integer) RETURNS void
@@ -257,10 +233,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.associate_test_points_w_user_polygons(test_point_set_num integer) OWNER TO jim;
-
 --
--- Name: contentious_points(integer); Type: FUNCTION; Schema: public; Owner: jim
+-- Name: contentious_points(integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION contentious_points(_create_event_id integer) RETURNS void
@@ -291,10 +265,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.contentious_points(_create_event_id integer) OWNER TO jim;
-
 --
--- Name: create_contentious_points(integer); Type: FUNCTION; Schema: public; Owner: jim
+-- Name: create_contentious_points(integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION create_contentious_points(_create_event_id integer) RETURNS void
@@ -325,10 +297,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.create_contentious_points(_create_event_id integer) OWNER TO jim;
-
 --
--- Name: create_event(integer, double precision); Type: FUNCTION; Schema: public; Owner: jim
+-- Name: create_event(integer, double precision); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION create_event(test_point_meter_width integer, concave_hull_target_precision double precision) RETURNS void
@@ -360,10 +330,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.create_event(test_point_meter_width integer, concave_hull_target_precision double precision) OWNER TO jim;
-
 --
--- Name: create_neighborhood_polygons(); Type: FUNCTION; Schema: public; Owner: jim
+-- Name: create_neighborhood_polygons(); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION create_neighborhood_polygons() RETURNS SETOF geometry
@@ -389,10 +357,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.create_neighborhood_polygons() OWNER TO jim;
-
 --
--- Name: create_neighborhood_polygons(integer); Type: FUNCTION; Schema: public; Owner: jim
+-- Name: create_neighborhood_polygons(integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION create_neighborhood_polygons(test_point_set_num integer) RETURNS SETOF geometry
@@ -420,10 +386,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.create_neighborhood_polygons(test_point_set_num integer) OWNER TO jim;
-
 --
--- Name: create_strength_of_identity(integer); Type: FUNCTION; Schema: public; Owner: jim
+-- Name: create_strength_of_identity(integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION create_strength_of_identity(_create_event_id integer) RETURNS void
@@ -481,10 +445,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.create_strength_of_identity(_create_event_id integer) OWNER TO jim;
-
 --
--- Name: delete_user_polygon(integer); Type: FUNCTION; Schema: public; Owner: jim
+-- Name: delete_user_polygon(integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION delete_user_polygon(_up_id integer) RETURNS void
@@ -506,10 +468,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.delete_user_polygon(_up_id integer) OWNER TO jim;
-
 --
--- Name: init_stuff(integer, double precision); Type: FUNCTION; Schema: public; Owner: jim
+-- Name: init_stuff(integer, double precision); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION init_stuff(set_number integer, concave_hull_target_precision double precision) RETURNS void
@@ -525,10 +485,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.init_stuff(set_number integer, concave_hull_target_precision double precision) OWNER TO jim;
-
 --
--- Name: makegrid_2d(geometry, integer, integer); Type: FUNCTION; Schema: public; Owner: jim
+-- Name: makegrid_2d(geometry, integer, integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION makegrid_2d(bound_polygon geometry, grid_step integer, metric_srid integer DEFAULT 2251) RETURNS geometry
@@ -584,10 +542,8 @@ END;
 $_$;
 
 
-ALTER FUNCTION public.makegrid_2d(bound_polygon geometry, grid_step integer, metric_srid integer) OWNER TO jim;
-
 --
--- Name: neighborhood_counts_by_point(point); Type: FUNCTION; Schema: public; Owner: jim
+-- Name: neighborhood_counts_by_point(point); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION neighborhood_counts_by_point(_test_point point) RETURNS SETOF neighborhood_counts_by_point_result
@@ -609,10 +565,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.neighborhood_counts_by_point(_test_point point) OWNER TO jim;
-
 --
--- Name: neighborhood_heat_map(integer, integer); Type: FUNCTION; Schema: public; Owner: jim
+-- Name: neighborhood_heat_map(integer, integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION neighborhood_heat_map(test_neighborhood_id integer, test_set_num integer) RETURNS SETOF neighborhood_heat_map_type
@@ -628,10 +582,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.neighborhood_heat_map(test_neighborhood_id integer, test_set_num integer) OWNER TO jim;
-
 --
--- Name: neighborhood_polygons_geojson_by_id(integer); Type: FUNCTION; Schema: public; Owner: jim
+-- Name: neighborhood_polygons_geojson_by_id(integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION neighborhood_polygons_geojson_by_id(test_np_id integer) RETURNS character varying
@@ -656,10 +608,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.neighborhood_polygons_geojson_by_id(test_np_id integer) OWNER TO jim;
-
 --
--- Name: neighborhoods_by_test_point(integer); Type: FUNCTION; Schema: public; Owner: jim
+-- Name: neighborhoods_by_test_point(integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION neighborhoods_by_test_point(test_set_num integer) RETURNS SETOF holder
@@ -683,10 +633,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.neighborhoods_by_test_point(test_set_num integer) OWNER TO jim;
-
 --
--- Name: neighborhoods_geojson(integer); Type: FUNCTION; Schema: public; Owner: jim
+-- Name: neighborhoods_geojson(integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION neighborhoods_geojson(test_region_id integer) RETURNS character varying
@@ -710,10 +658,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.neighborhoods_geojson(test_region_id integer) OWNER TO jim;
-
 --
--- Name: num_total_user_polygons(integer); Type: FUNCTION; Schema: public; Owner: jim
+-- Name: num_total_user_polygons(integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION num_total_user_polygons(test_test_point_id integer) RETURNS integer
@@ -732,10 +678,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.num_total_user_polygons(test_test_point_id integer) OWNER TO jim;
-
 --
--- Name: num_user_polygons(integer); Type: FUNCTION; Schema: public; Owner: jim
+-- Name: num_user_polygons(integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION num_user_polygons(test_test_point_id integer) RETURNS integer
@@ -751,10 +695,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.num_user_polygons(test_test_point_id integer) OWNER TO jim;
-
 --
--- Name: st_createfishnet(integer, integer, double precision, double precision, double precision, double precision); Type: FUNCTION; Schema: public; Owner: jim
+-- Name: st_createfishnet(integer, integer, double precision, double precision, double precision, double precision); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION st_createfishnet(nrow integer, ncol integer, xsize double precision, ysize double precision, x0 double precision DEFAULT 0, y0 double precision DEFAULT 0, OUT "row" integer, OUT col integer, OUT geom geometry) RETURNS SETOF record
@@ -769,10 +711,8 @@ SELECT ('POLYGON((0 0, 0 '||$4||', '||$3||' '||$4||', '||$3||' 0,0 0))')::geomet
 $_$;
 
 
-ALTER FUNCTION public.st_createfishnet(nrow integer, ncol integer, xsize double precision, ysize double precision, x0 double precision, y0 double precision, OUT "row" integer, OUT col integer, OUT geom geometry) OWNER TO jim;
-
 --
--- Name: user_polygons_geojson_by_user_id(integer); Type: FUNCTION; Schema: public; Owner: jim
+-- Name: user_polygons_geojson_by_user_id(integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION user_polygons_geojson_by_user_id(test_whathood_user_id integer) RETURNS character varying
@@ -797,14 +737,12 @@ END;
 $$;
 
 
-ALTER FUNCTION public.user_polygons_geojson_by_user_id(test_whathood_user_id integer) OWNER TO jim;
-
 SET default_tablespace = '';
 
 SET default_with_oids = false;
 
 --
--- Name: user_polygon; Type: TABLE; Schema: public; Owner: jim; Tablespace: 
+-- Name: user_polygon; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE user_polygon (
@@ -817,17 +755,15 @@ CREATE TABLE user_polygon (
 );
 
 
-ALTER TABLE public.user_polygon OWNER TO jim;
-
 --
--- Name: COLUMN user_polygon.polygon; Type: COMMENT; Schema: public; Owner: jim
+-- Name: COLUMN user_polygon.polygon; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON COLUMN user_polygon.polygon IS '(DC2Type:polygon)';
 
 
 --
--- Name: whathood(geometry); Type: FUNCTION; Schema: public; Owner: jim
+-- Name: whathood(geometry); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION whathood(test_point geometry) RETURNS SETOF user_polygon
@@ -840,10 +776,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.whathood(test_point geometry) OWNER TO jim;
-
 --
--- Name: whathood(integer); Type: FUNCTION; Schema: public; Owner: jim
+-- Name: whathood(integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION whathood(test_point_set_num integer) RETURNS void
@@ -879,10 +813,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.whathood(test_point_set_num integer) OWNER TO jim;
-
 --
--- Name: neighborhood_polygons_create_event; Type: TABLE; Schema: public; Owner: jim; Tablespace: 
+-- Name: neighborhood_polygons_create_event; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE neighborhood_polygons_create_event (
@@ -894,12 +826,10 @@ CREATE TABLE neighborhood_polygons_create_event (
 );
 
 
-ALTER TABLE public.neighborhood_polygons_create_event OWNER TO jim;
-
 SET search_path = whathood, pg_catalog;
 
 --
--- Name: associate_np_w_up(public.neighborhood_polygons_create_event); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: associate_np_w_up(public.neighborhood_polygons_create_event); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION associate_np_w_up(_create_event public.neighborhood_polygons_create_event) RETURNS void
@@ -918,10 +848,8 @@ END;
 $$;
 
 
-ALTER FUNCTION whathood.associate_np_w_up(_create_event public.neighborhood_polygons_create_event) OWNER TO jim;
-
 --
--- Name: associate_np_w_up(integer); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: associate_np_w_up(integer); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION associate_np_w_up(_create_event_id integer) RETURNS void
@@ -936,10 +864,8 @@ END;
 $$;
 
 
-ALTER FUNCTION whathood.associate_np_w_up(_create_event_id integer) OWNER TO jim;
-
 --
--- Name: associate_test_points_w_user_polygons(public.neighborhood_polygons_create_event); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: associate_test_points_w_user_polygons(public.neighborhood_polygons_create_event); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION associate_test_points_w_user_polygons(_create_event public.neighborhood_polygons_create_event) RETURNS void
@@ -963,10 +889,8 @@ END;
 $$;
 
 
-ALTER FUNCTION whathood.associate_test_points_w_user_polygons(_create_event public.neighborhood_polygons_create_event) OWNER TO jim;
-
 --
--- Name: create_contentious_points(integer); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: create_contentious_points(integer); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION create_contentious_points(_create_event_id integer) RETURNS void
@@ -997,10 +921,8 @@ END;
 $$;
 
 
-ALTER FUNCTION whathood.create_contentious_points(_create_event_id integer) OWNER TO jim;
-
 --
--- Name: create_event(integer, double precision); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: create_event(integer, double precision); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION create_event(test_point_meter_width integer, concave_hull_target_precision double precision) RETURNS void
@@ -1040,10 +962,8 @@ END;
 $$;
 
 
-ALTER FUNCTION whathood.create_event(test_point_meter_width integer, concave_hull_target_precision double precision) OWNER TO jim;
-
 --
--- Name: create_neighborhood_border(integer, numeric); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: create_neighborhood_border(integer, numeric); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION create_neighborhood_border(_neighborhood_id integer, _grid_resolution numeric) RETURNS SETOF public.polygon_counts_result
@@ -1067,10 +987,8 @@ END;
 $$;
 
 
-ALTER FUNCTION whathood.create_neighborhood_border(_neighborhood_id integer, _grid_resolution numeric) OWNER TO jim;
-
 --
--- Name: create_neighborhood_polygons(public.neighborhood_polygons_create_event); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: create_neighborhood_polygons(public.neighborhood_polygons_create_event); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION create_neighborhood_polygons(_create_event public.neighborhood_polygons_create_event) RETURNS SETOF public.create_neighborhood_polygons_return_type
@@ -1103,10 +1021,8 @@ END;
 $$;
 
 
-ALTER FUNCTION whathood.create_neighborhood_polygons(_create_event public.neighborhood_polygons_create_event) OWNER TO jim;
-
 --
--- Name: create_strength_of_identity(public.neighborhood_polygons_create_event); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: create_strength_of_identity(public.neighborhood_polygons_create_event); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION create_strength_of_identity(_create_event public.neighborhood_polygons_create_event) RETURNS void
@@ -1174,10 +1090,8 @@ END;
 $$;
 
 
-ALTER FUNCTION whathood.create_strength_of_identity(_create_event public.neighborhood_polygons_create_event) OWNER TO jim;
-
 --
--- Name: create_test_points(integer); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: create_test_points(integer); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION create_test_points(_point_width integer) RETURNS integer
@@ -1203,10 +1117,8 @@ END;
 $$;
 
 
-ALTER FUNCTION whathood.create_test_points(_point_width integer) OWNER TO jim;
-
 --
--- Name: gather_test_point_counts(public.geometry[], integer); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: gather_test_point_counts(public.geometry[], integer); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION gather_test_point_counts(test_points public.geometry[], _neighborhood_id integer) RETURNS SETOF public.polygon_counts_result
@@ -1228,10 +1140,8 @@ CREATE FUNCTION gather_test_point_counts(test_points public.geometry[], _neighbo
 $$;
 
 
-ALTER FUNCTION whathood.gather_test_point_counts(test_points public.geometry[], _neighborhood_id integer) OWNER TO jim;
-
 --
--- Name: generate_test_points(integer); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: generate_test_points(integer); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION generate_test_points(meter_distance integer) RETURNS integer
@@ -1249,10 +1159,8 @@ END
 $$;
 
 
-ALTER FUNCTION whathood.generate_test_points(meter_distance integer) OWNER TO jim;
-
 --
--- Name: get_dominant_neighborhood(point); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: get_dominant_neighborhood(point); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION get_dominant_neighborhood(_test_point point) RETURNS integer
@@ -1281,10 +1189,8 @@ END;
 $$;
 
 
-ALTER FUNCTION whathood.get_dominant_neighborhood(_test_point point) OWNER TO jim;
-
 --
--- Name: get_dominant_neighborhood(public.geometry); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: get_dominant_neighborhood(public.geometry); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION get_dominant_neighborhood(_test_point public.geometry) RETURNS integer
@@ -1314,10 +1220,8 @@ END;
 $$;
 
 
-ALTER FUNCTION whathood.get_dominant_neighborhood(_test_point public.geometry) OWNER TO jim;
-
 --
--- Name: last_create_event(); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: last_create_event(); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION last_create_event() RETURNS public.neighborhood_polygons_create_event
@@ -1329,10 +1233,8 @@ END;
 $$;
 
 
-ALTER FUNCTION whathood.last_create_event() OWNER TO jim;
-
 --
--- Name: makegrid_2d(public.geometry, integer); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: makegrid_2d(public.geometry, integer); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION makegrid_2d(bound_polygon public.geometry, grid_step integer) RETURNS public.geometry[]
@@ -1386,10 +1288,8 @@ END;
 $_$;
 
 
-ALTER FUNCTION whathood.makegrid_2d(bound_polygon public.geometry, grid_step integer) OWNER TO jim;
-
 --
--- Name: makegrid_2d(public.geometry, numeric); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: makegrid_2d(public.geometry, numeric); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION makegrid_2d(bound_polygon public.geometry, grid_step numeric) RETURNS public.geometry[]
@@ -1443,10 +1343,8 @@ END;
 $_$;
 
 
-ALTER FUNCTION whathood.makegrid_2d(bound_polygon public.geometry, grid_step numeric) OWNER TO jim;
-
 --
--- Name: makegrid_2d(public.geometry, integer, integer); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: makegrid_2d(public.geometry, integer, integer); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION makegrid_2d(bound_polygon public.geometry, grid_step integer, metric_srid integer DEFAULT 2251) RETURNS public.geometry[]
@@ -1500,10 +1398,8 @@ END;
 $_$;
 
 
-ALTER FUNCTION whathood.makegrid_2d(bound_polygon public.geometry, grid_step integer, metric_srid integer) OWNER TO jim;
-
 --
--- Name: merge_user_polygons(point[], integer); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: merge_user_polygons(point[], integer); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION merge_user_polygons(_test_points point[], _neighborhood_id integer) RETURNS integer
@@ -1518,10 +1414,8 @@ CREATE FUNCTION merge_user_polygons(_test_points point[], _neighborhood_id integ
 $$;
 
 
-ALTER FUNCTION whathood.merge_user_polygons(_test_points point[], _neighborhood_id integer) OWNER TO jim;
-
 --
--- Name: merge_user_polygons(point[], text); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: merge_user_polygons(point[], text); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION merge_user_polygons(test_points point[], neighborhood_name text) RETURNS public.geometry
@@ -1578,10 +1472,8 @@ END;
 $$;
 
 
-ALTER FUNCTION whathood.merge_user_polygons(test_points point[], neighborhood_name text) OWNER TO jim;
-
 --
--- Name: merge_user_polygons(text, public.geometry[], integer, integer); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: merge_user_polygons(text, public.geometry[], integer, integer); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION merge_user_polygons(neighborhood_name text, test_points public.geometry[], OUT point public.geometry, num1 integer, num2 integer) RETURNS public.geometry
@@ -1604,10 +1496,8 @@ END;
 $$;
 
 
-ALTER FUNCTION whathood.merge_user_polygons(neighborhood_name text, test_points public.geometry[], OUT point public.geometry, num1 integer, num2 integer) OWNER TO jim;
-
 --
--- Name: neighborhood_counts_by_point(public.geometry); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: neighborhood_counts_by_point(public.geometry); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION neighborhood_counts_by_point(_test_point public.geometry) RETURNS SETOF neighborhood_counts_by_point_result
@@ -1629,12 +1519,10 @@ END;
 $$;
 
 
-ALTER FUNCTION whathood.neighborhood_counts_by_point(_test_point public.geometry) OWNER TO jim;
-
 SET search_path = public, pg_catalog;
 
 --
--- Name: neighborhood_polygon; Type: TABLE; Schema: public; Owner: jim; Tablespace: 
+-- Name: neighborhood_polygon; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE neighborhood_polygon (
@@ -1647,12 +1535,10 @@ CREATE TABLE neighborhood_polygon (
 );
 
 
-ALTER TABLE public.neighborhood_polygon OWNER TO jim;
-
 SET search_path = whathood, pg_catalog;
 
 --
--- Name: neighborhood_polygons_by_create_event_id(integer, integer); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: neighborhood_polygons_by_create_event_id(integer, integer); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION neighborhood_polygons_by_create_event_id(_create_event_id integer, _region_id integer) RETURNS SETOF public.neighborhood_polygon
@@ -1683,10 +1569,8 @@ END;
 $$;
 
 
-ALTER FUNCTION whathood.neighborhood_polygons_by_create_event_id(_create_event_id integer, _region_id integer) OWNER TO jim;
-
 --
--- Name: neighborhood_polygons_geojson_by_id(integer); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: neighborhood_polygons_geojson_by_id(integer); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION neighborhood_polygons_geojson_by_id(test_np_id integer) RETURNS character varying
@@ -1711,10 +1595,8 @@ END;
 $$;
 
 
-ALTER FUNCTION whathood.neighborhood_polygons_geojson_by_id(test_np_id integer) OWNER TO jim;
-
 --
--- Name: neighborhoods_geojson(integer, integer); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: neighborhoods_geojson(integer, integer); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION neighborhoods_geojson(_create_event_id integer, _region_id integer) RETURNS character varying
@@ -1753,10 +1635,8 @@ END;
 $$;
 
 
-ALTER FUNCTION whathood.neighborhoods_geojson(_create_event_id integer, _region_id integer) OWNER TO jim;
-
 --
--- Name: polygon_counts(public.geometry, integer); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: polygon_counts(public.geometry, integer); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION polygon_counts(_test_point public.geometry, _neighborhood_id integer) RETURNS public.polygon_counts_result
@@ -1826,10 +1706,8 @@ END;
 $$;
 
 
-ALTER FUNCTION whathood.polygon_counts(_test_point public.geometry, _neighborhood_id integer) OWNER TO jim;
-
 --
--- Name: select_latest_neighborhood_polygons(integer, integer); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: select_latest_neighborhood_polygons(integer, integer); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION select_latest_neighborhood_polygons(_create_event integer, test_region_id integer) RETURNS SETOF public.neighborhood_polygon
@@ -1868,10 +1746,8 @@ END;
 $$;
 
 
-ALTER FUNCTION whathood.select_latest_neighborhood_polygons(_create_event integer, test_region_id integer) OWNER TO jim;
-
 --
--- Name: select_neighborhood_points(integer, integer); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: select_neighborhood_points(integer, integer); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION select_neighborhood_points(_create_event_id integer, _neighborhood_id integer) RETURNS SETOF public.select_neighborhood_points_type
@@ -1909,10 +1785,8 @@ END;
 $$;
 
 
-ALTER FUNCTION whathood.select_neighborhood_points(_create_event_id integer, _neighborhood_id integer) OWNER TO jim;
-
 --
--- Name: select_np_up(public.neighborhood_polygons_create_event); Type: FUNCTION; Schema: whathood; Owner: jim
+-- Name: select_np_up(public.neighborhood_polygons_create_event); Type: FUNCTION; Schema: whathood; Owner: -
 --
 
 CREATE FUNCTION select_np_up(_create_event public.neighborhood_polygons_create_event) RETURNS SETOF public.select_np_up_type
@@ -1943,12 +1817,10 @@ END;
 $$;
 
 
-ALTER FUNCTION whathood.select_np_up(_create_event public.neighborhood_polygons_create_event) OWNER TO jim;
-
 SET search_path = public, pg_catalog;
 
 --
--- Name: phila_city_limits; Type: TABLE; Schema: public; Owner: jim; Tablespace: 
+-- Name: phila_city_limits; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE phila_city_limits (
@@ -1974,10 +1846,8 @@ CREATE TABLE phila_city_limits (
 );
 
 
-ALTER TABLE public.phila_city_limits OWNER TO jim;
-
 --
--- Name: city_limits_ogc_fid_seq; Type: SEQUENCE; Schema: public; Owner: jim
+-- Name: city_limits_ogc_fid_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE city_limits_ogc_fid_seq
@@ -1988,17 +1858,15 @@ CREATE SEQUENCE city_limits_ogc_fid_seq
     CACHE 1;
 
 
-ALTER TABLE public.city_limits_ogc_fid_seq OWNER TO jim;
-
 --
--- Name: city_limits_ogc_fid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: jim
+-- Name: city_limits_ogc_fid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE city_limits_ogc_fid_seq OWNED BY phila_city_limits.ogc_fid;
 
 
 --
--- Name: contentious_point; Type: TABLE; Schema: public; Owner: jim; Tablespace: 
+-- Name: contentious_point; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE contentious_point (
@@ -2010,10 +1878,8 @@ CREATE TABLE contentious_point (
 );
 
 
-ALTER TABLE public.contentious_point OWNER TO jim;
-
 --
--- Name: contentious_point_id_seq; Type: SEQUENCE; Schema: public; Owner: jim
+-- Name: contentious_point_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE contentious_point_id_seq
@@ -2024,17 +1890,15 @@ CREATE SEQUENCE contentious_point_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.contentious_point_id_seq OWNER TO jim;
-
 --
--- Name: contentious_point_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: jim
+-- Name: contentious_point_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE contentious_point_id_seq OWNED BY contentious_point.id;
 
 
 --
--- Name: test_point; Type: TABLE; Schema: public; Owner: jim; Tablespace: 
+-- Name: test_point; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE test_point (
@@ -2044,17 +1908,15 @@ CREATE TABLE test_point (
 );
 
 
-ALTER TABLE public.test_point OWNER TO jim;
-
 --
--- Name: COLUMN test_point.point; Type: COMMENT; Schema: public; Owner: jim
+-- Name: COLUMN test_point.point; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON COLUMN test_point.point IS '(DC2Type:point)';
 
 
 --
--- Name: create_event_info; Type: VIEW; Schema: public; Owner: jim
+-- Name: create_event_info; Type: VIEW; Schema: public; Owner: -
 --
 
 CREATE VIEW create_event_info AS
@@ -2071,10 +1933,8 @@ CREATE VIEW create_event_info AS
           GROUP BY test_point.set_num) b ON ((a.test_point_meter_width = b.set_num)));
 
 
-ALTER TABLE public.create_event_info OWNER TO jim;
-
 --
--- Name: heat_map_id_seq; Type: SEQUENCE; Schema: public; Owner: jim
+-- Name: heat_map_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE heat_map_id_seq
@@ -2085,10 +1945,8 @@ CREATE SEQUENCE heat_map_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.heat_map_id_seq OWNER TO jim;
-
 --
--- Name: heat_map_point_id_seq; Type: SEQUENCE; Schema: public; Owner: jim
+-- Name: heat_map_point_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE heat_map_point_id_seq
@@ -2099,10 +1957,8 @@ CREATE SEQUENCE heat_map_point_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.heat_map_point_id_seq OWNER TO jim;
-
 --
--- Name: heat_map_test_point_id_seq; Type: SEQUENCE; Schema: public; Owner: jim
+-- Name: heat_map_test_point_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE heat_map_test_point_id_seq
@@ -2113,10 +1969,8 @@ CREATE SEQUENCE heat_map_test_point_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.heat_map_test_point_id_seq OWNER TO jim;
-
 --
--- Name: heat_map_test_point_id_seq1; Type: SEQUENCE; Schema: public; Owner: jim
+-- Name: heat_map_test_point_id_seq1; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE heat_map_test_point_id_seq1
@@ -2127,17 +1981,15 @@ CREATE SEQUENCE heat_map_test_point_id_seq1
     CACHE 1;
 
 
-ALTER TABLE public.heat_map_test_point_id_seq1 OWNER TO jim;
-
 --
--- Name: heat_map_test_point_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: jim
+-- Name: heat_map_test_point_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE heat_map_test_point_id_seq1 OWNED BY test_point.id;
 
 
 --
--- Name: my_temp_table; Type: TABLE; Schema: public; Owner: jim; Tablespace: 
+-- Name: my_temp_table; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE my_temp_table (
@@ -2149,10 +2001,8 @@ CREATE TABLE my_temp_table (
 );
 
 
-ALTER TABLE public.my_temp_table OWNER TO jim;
-
 --
--- Name: neighborhood; Type: TABLE; Schema: public; Owner: jim; Tablespace: 
+-- Name: neighborhood; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE neighborhood (
@@ -2163,10 +2013,8 @@ CREATE TABLE neighborhood (
 );
 
 
-ALTER TABLE public.neighborhood OWNER TO jim;
-
 --
--- Name: neighborhood_heat_map_point_id_seq; Type: SEQUENCE; Schema: public; Owner: jim
+-- Name: neighborhood_heat_map_point_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE neighborhood_heat_map_point_id_seq
@@ -2177,10 +2025,8 @@ CREATE SEQUENCE neighborhood_heat_map_point_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.neighborhood_heat_map_point_id_seq OWNER TO jim;
-
 --
--- Name: neighborhood_id_seq; Type: SEQUENCE; Schema: public; Owner: jim
+-- Name: neighborhood_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE neighborhood_id_seq
@@ -2191,10 +2037,8 @@ CREATE SEQUENCE neighborhood_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.neighborhood_id_seq OWNER TO jim;
-
 --
--- Name: neighborhood_point_strength_of_identity; Type: TABLE; Schema: public; Owner: jim; Tablespace: 
+-- Name: neighborhood_point_strength_of_identity; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE neighborhood_point_strength_of_identity (
@@ -2208,10 +2052,8 @@ CREATE TABLE neighborhood_point_strength_of_identity (
 );
 
 
-ALTER TABLE public.neighborhood_point_strength_of_identity OWNER TO jim;
-
 --
--- Name: neighborhood_point_strength_of_identity_id_seq; Type: SEQUENCE; Schema: public; Owner: jim
+-- Name: neighborhood_point_strength_of_identity_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE neighborhood_point_strength_of_identity_id_seq
@@ -2222,17 +2064,15 @@ CREATE SEQUENCE neighborhood_point_strength_of_identity_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.neighborhood_point_strength_of_identity_id_seq OWNER TO jim;
-
 --
--- Name: neighborhood_point_strength_of_identity_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: jim
+-- Name: neighborhood_point_strength_of_identity_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE neighborhood_point_strength_of_identity_id_seq OWNED BY neighborhood_point_strength_of_identity.id;
 
 
 --
--- Name: neighborhood_polygon_id_seq; Type: SEQUENCE; Schema: public; Owner: jim
+-- Name: neighborhood_polygon_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE neighborhood_polygon_id_seq
@@ -2243,10 +2083,8 @@ CREATE SEQUENCE neighborhood_polygon_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.neighborhood_polygon_id_seq OWNER TO jim;
-
 --
--- Name: neighborhood_polygon_id_seq1; Type: SEQUENCE; Schema: public; Owner: jim
+-- Name: neighborhood_polygon_id_seq1; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE neighborhood_polygon_id_seq1
@@ -2257,17 +2095,15 @@ CREATE SEQUENCE neighborhood_polygon_id_seq1
     CACHE 1;
 
 
-ALTER TABLE public.neighborhood_polygon_id_seq1 OWNER TO jim;
-
 --
--- Name: neighborhood_polygon_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: jim
+-- Name: neighborhood_polygon_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE neighborhood_polygon_id_seq1 OWNED BY neighborhood_polygon.id;
 
 
 --
--- Name: neighborhood_polygon_vote_id_seq; Type: SEQUENCE; Schema: public; Owner: jim
+-- Name: neighborhood_polygon_vote_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE neighborhood_polygon_vote_id_seq
@@ -2278,10 +2114,8 @@ CREATE SEQUENCE neighborhood_polygon_vote_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.neighborhood_polygon_vote_id_seq OWNER TO jim;
-
 --
--- Name: neighborhood_polygons_create_event_id_seq; Type: SEQUENCE; Schema: public; Owner: jim
+-- Name: neighborhood_polygons_create_event_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE neighborhood_polygons_create_event_id_seq
@@ -2292,17 +2126,15 @@ CREATE SEQUENCE neighborhood_polygons_create_event_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.neighborhood_polygons_create_event_id_seq OWNER TO jim;
-
 --
--- Name: neighborhood_polygons_create_event_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: jim
+-- Name: neighborhood_polygons_create_event_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE neighborhood_polygons_create_event_id_seq OWNED BY neighborhood_polygons_create_event.id;
 
 
 --
--- Name: phila_neighborhoods; Type: TABLE; Schema: public; Owner: jim; Tablespace: 
+-- Name: phila_neighborhoods; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE phila_neighborhoods (
@@ -2311,10 +2143,8 @@ CREATE TABLE phila_neighborhoods (
 );
 
 
-ALTER TABLE public.phila_neighborhoods OWNER TO jim;
-
 --
--- Name: polygon; Type: TABLE; Schema: public; Owner: jim; Tablespace: 
+-- Name: polygon; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE polygon (
@@ -2322,10 +2152,8 @@ CREATE TABLE polygon (
 );
 
 
-ALTER TABLE public.polygon OWNER TO jim;
-
 --
--- Name: region; Type: TABLE; Schema: public; Owner: jim; Tablespace: 
+-- Name: region; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE region (
@@ -2336,17 +2164,15 @@ CREATE TABLE region (
 );
 
 
-ALTER TABLE public.region OWNER TO jim;
-
 --
--- Name: COLUMN region.center_point; Type: COMMENT; Schema: public; Owner: jim
+-- Name: COLUMN region.center_point; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON COLUMN region.center_point IS '(DC2Type:point)';
 
 
 --
--- Name: region_id_seq; Type: SEQUENCE; Schema: public; Owner: jim
+-- Name: region_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE region_id_seq
@@ -2357,10 +2183,8 @@ CREATE SEQUENCE region_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.region_id_seq OWNER TO jim;
-
 --
--- Name: show_test_point_info; Type: VIEW; Schema: public; Owner: jim
+-- Name: show_test_point_info; Type: VIEW; Schema: public; Owner: -
 --
 
 CREATE VIEW show_test_point_info AS
@@ -2371,10 +2195,8 @@ CREATE VIEW show_test_point_info AS
   ORDER BY test_point.set_num;
 
 
-ALTER TABLE public.show_test_point_info OWNER TO jim;
-
 --
--- Name: test_point_info; Type: VIEW; Schema: public; Owner: jim
+-- Name: test_point_info; Type: VIEW; Schema: public; Owner: -
 --
 
 CREATE VIEW test_point_info AS
@@ -2385,10 +2207,8 @@ CREATE VIEW test_point_info AS
   ORDER BY count(*) DESC;
 
 
-ALTER TABLE public.test_point_info OWNER TO jim;
-
 --
--- Name: trans_ce_tp_up; Type: TABLE; Schema: public; Owner: jim; Tablespace: 
+-- Name: trans_ce_tp_up; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE trans_ce_tp_up (
@@ -2399,10 +2219,8 @@ CREATE TABLE trans_ce_tp_up (
 );
 
 
-ALTER TABLE public.trans_ce_tp_up OWNER TO jim;
-
 --
--- Name: trans_ce_tp_up_id_seq; Type: SEQUENCE; Schema: public; Owner: jim
+-- Name: trans_ce_tp_up_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE trans_ce_tp_up_id_seq
@@ -2413,17 +2231,15 @@ CREATE SEQUENCE trans_ce_tp_up_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.trans_ce_tp_up_id_seq OWNER TO jim;
-
 --
--- Name: trans_ce_tp_up_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: jim
+-- Name: trans_ce_tp_up_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE trans_ce_tp_up_id_seq OWNED BY trans_ce_tp_up.id;
 
 
 --
--- Name: trans_np_up; Type: TABLE; Schema: public; Owner: jim; Tablespace: 
+-- Name: trans_np_up; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE trans_np_up (
@@ -2434,10 +2250,8 @@ CREATE TABLE trans_np_up (
 );
 
 
-ALTER TABLE public.trans_np_up OWNER TO jim;
-
 --
--- Name: trans_np_up_id_seq; Type: SEQUENCE; Schema: public; Owner: jim
+-- Name: trans_np_up_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE trans_np_up_id_seq
@@ -2448,17 +2262,15 @@ CREATE SEQUENCE trans_np_up_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.trans_np_up_id_seq OWNER TO jim;
-
 --
--- Name: trans_np_up_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: jim
+-- Name: trans_np_up_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE trans_np_up_id_seq OWNED BY trans_np_up.id;
 
 
 --
--- Name: user_polygon_id_seq; Type: SEQUENCE; Schema: public; Owner: jim
+-- Name: user_polygon_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE user_polygon_id_seq
@@ -2469,10 +2281,8 @@ CREATE SEQUENCE user_polygon_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.user_polygon_id_seq OWNER TO jim;
-
 --
--- Name: user_polygon_test_point; Type: VIEW; Schema: public; Owner: jim
+-- Name: user_polygon_test_point; Type: VIEW; Schema: public; Owner: -
 --
 
 CREATE VIEW user_polygon_test_point AS
@@ -2483,10 +2293,8 @@ CREATE VIEW user_polygon_test_point AS
      JOIN neighborhood n ON ((n.id = up.neighborhood_id)));
 
 
-ALTER TABLE public.user_polygon_test_point OWNER TO jim;
-
 --
--- Name: user_polygons_not_in_neighborhoods; Type: VIEW; Schema: public; Owner: jim
+-- Name: user_polygons_not_in_neighborhoods; Type: VIEW; Schema: public; Owner: -
 --
 
 CREATE VIEW user_polygons_not_in_neighborhoods AS
@@ -2501,10 +2309,8 @@ CREATE VIEW user_polygons_not_in_neighborhoods AS
            FROM trans_np_up)));
 
 
-ALTER TABLE public.user_polygons_not_in_neighborhoods OWNER TO jim;
-
 --
--- Name: whathood_user_id_seq; Type: SEQUENCE; Schema: public; Owner: jim
+-- Name: whathood_user_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE whathood_user_id_seq
@@ -2515,12 +2321,10 @@ CREATE SEQUENCE whathood_user_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.whathood_user_id_seq OWNER TO jim;
-
 SET search_path = whathood, pg_catalog;
 
 --
--- Name: neighborhood_point_info; Type: VIEW; Schema: whathood; Owner: jim
+-- Name: neighborhood_point_info; Type: VIEW; Schema: whathood; Owner: -
 --
 
 CREATE VIEW neighborhood_point_info AS
@@ -2535,10 +2339,8 @@ CREATE VIEW neighborhood_point_info AS
      JOIN public.neighborhood ON ((neighborhood_point_strength_of_identity.neighborhood_id = neighborhood.id)));
 
 
-ALTER TABLE whathood.neighborhood_point_info OWNER TO jim;
-
 --
--- Name: neighborhood_user_polygon; Type: VIEW; Schema: whathood; Owner: jim
+-- Name: neighborhood_user_polygon; Type: VIEW; Schema: whathood; Owner: -
 --
 
 CREATE VIEW neighborhood_user_polygon AS
@@ -2552,10 +2354,8 @@ CREATE VIEW neighborhood_user_polygon AS
   ORDER BY trans_np_up.up_id;
 
 
-ALTER TABLE whathood.neighborhood_user_polygon OWNER TO jim;
-
 --
--- Name: np_w_up_count; Type: TABLE; Schema: whathood; Owner: jim; Tablespace: 
+-- Name: np_w_up_count; Type: TABLE; Schema: whathood; Owner: -; Tablespace: 
 --
 
 CREATE TABLE np_w_up_count (
@@ -2569,10 +2369,8 @@ CREATE TABLE np_w_up_count (
 );
 
 
-ALTER TABLE whathood.np_w_up_count OWNER TO jim;
-
 --
--- Name: user_polygon_test_point; Type: VIEW; Schema: whathood; Owner: jim
+-- Name: user_polygon_test_point; Type: VIEW; Schema: whathood; Owner: -
 --
 
 CREATE VIEW user_polygon_test_point AS
@@ -2584,10 +2382,8 @@ CREATE VIEW user_polygon_test_point AS
      JOIN public.neighborhood n ON ((n.id = up.neighborhood_id)));
 
 
-ALTER TABLE whathood.user_polygon_test_point OWNER TO jim;
-
 --
--- Name: user_polygons_not_in_neighborhoods; Type: VIEW; Schema: whathood; Owner: jim
+-- Name: user_polygons_not_in_neighborhoods; Type: VIEW; Schema: whathood; Owner: -
 --
 
 CREATE VIEW user_polygons_not_in_neighborhoods AS
@@ -2602,75 +2398,73 @@ CREATE VIEW user_polygons_not_in_neighborhoods AS
            FROM public.trans_np_up)));
 
 
-ALTER TABLE whathood.user_polygons_not_in_neighborhoods OWNER TO jim;
-
 SET search_path = public, pg_catalog;
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: jim
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY contentious_point ALTER COLUMN id SET DEFAULT nextval('contentious_point_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: jim
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY neighborhood_point_strength_of_identity ALTER COLUMN id SET DEFAULT nextval('neighborhood_point_strength_of_identity_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: jim
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY neighborhood_polygon ALTER COLUMN id SET DEFAULT nextval('neighborhood_polygon_id_seq1'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: jim
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY neighborhood_polygons_create_event ALTER COLUMN id SET DEFAULT nextval('neighborhood_polygons_create_event_id_seq'::regclass);
 
 
 --
--- Name: ogc_fid; Type: DEFAULT; Schema: public; Owner: jim
+-- Name: ogc_fid; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY phila_city_limits ALTER COLUMN ogc_fid SET DEFAULT nextval('city_limits_ogc_fid_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: jim
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY test_point ALTER COLUMN id SET DEFAULT nextval('heat_map_test_point_id_seq1'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: jim
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY trans_ce_tp_up ALTER COLUMN id SET DEFAULT nextval('trans_ce_tp_up_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: jim
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY trans_np_up ALTER COLUMN id SET DEFAULT nextval('trans_np_up_id_seq'::regclass);
 
 
 --
--- Name: city_limits_ogc_fid_seq; Type: SEQUENCE SET; Schema: public; Owner: jim
+-- Name: city_limits_ogc_fid_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('city_limits_ogc_fid_seq', 1, true);
 
 
 --
--- Data for Name: contentious_point; Type: TABLE DATA; Schema: public; Owner: jim
+-- Data for Name: contentious_point; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY contentious_point (id, create_event_id, test_point_id, point, strength_of_identity) FROM stdin;
@@ -10592,42 +10386,42 @@ COPY contentious_point (id, create_event_id, test_point_id, point, strength_of_i
 
 
 --
--- Name: contentious_point_id_seq; Type: SEQUENCE SET; Schema: public; Owner: jim
+-- Name: contentious_point_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('contentious_point_id_seq', 7916, true);
 
 
 --
--- Name: heat_map_id_seq; Type: SEQUENCE SET; Schema: public; Owner: jim
+-- Name: heat_map_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('heat_map_id_seq', 219, true);
 
 
 --
--- Name: heat_map_point_id_seq; Type: SEQUENCE SET; Schema: public; Owner: jim
+-- Name: heat_map_point_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('heat_map_point_id_seq', 152536, true);
 
 
 --
--- Name: heat_map_test_point_id_seq; Type: SEQUENCE SET; Schema: public; Owner: jim
+-- Name: heat_map_test_point_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('heat_map_test_point_id_seq', 498947, true);
 
 
 --
--- Name: heat_map_test_point_id_seq1; Type: SEQUENCE SET; Schema: public; Owner: jim
+-- Name: heat_map_test_point_id_seq1; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('heat_map_test_point_id_seq1', 3541019, true);
 
 
 --
--- Data for Name: my_temp_table; Type: TABLE DATA; Schema: public; Owner: jim
+-- Data for Name: my_temp_table; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY my_temp_table (test_point_id, point, neighborhood_name, num_polygons_for_name, num_polygons_for_point) FROM stdin;
@@ -10635,7 +10429,7 @@ COPY my_temp_table (test_point_id, point, neighborhood_name, num_polygons_for_na
 
 
 --
--- Data for Name: neighborhood; Type: TABLE DATA; Schema: public; Owner: jim
+-- Data for Name: neighborhood; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY neighborhood (id, region_id, name, date_time_added) FROM stdin;
@@ -10802,21 +10596,21 @@ COPY neighborhood (id, region_id, name, date_time_added) FROM stdin;
 
 
 --
--- Name: neighborhood_heat_map_point_id_seq; Type: SEQUENCE SET; Schema: public; Owner: jim
+-- Name: neighborhood_heat_map_point_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('neighborhood_heat_map_point_id_seq', 58696, true);
 
 
 --
--- Name: neighborhood_id_seq; Type: SEQUENCE SET; Schema: public; Owner: jim
+-- Name: neighborhood_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('neighborhood_id_seq', 159, true);
 
 
 --
--- Data for Name: neighborhood_point_strength_of_identity; Type: TABLE DATA; Schema: public; Owner: jim
+-- Data for Name: neighborhood_point_strength_of_identity; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY neighborhood_point_strength_of_identity (id, test_point_id, neighborhood_id, create_event_id, num_polygons_for_name, num_polygons_for_point, strength_of_identity) FROM stdin;
@@ -10824,14 +10618,14 @@ COPY neighborhood_point_strength_of_identity (id, test_point_id, neighborhood_id
 
 
 --
--- Name: neighborhood_point_strength_of_identity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: jim
+-- Name: neighborhood_point_strength_of_identity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('neighborhood_point_strength_of_identity_id_seq', 1571652, true);
 
 
 --
--- Data for Name: neighborhood_polygon; Type: TABLE DATA; Schema: public; Owner: jim
+-- Data for Name: neighborhood_polygon; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY neighborhood_polygon (id, neighborhood_id, create_event_id, polygon, num_user_polygons, date_time_created) FROM stdin;
@@ -11629,28 +11423,28 @@ COPY neighborhood_polygon (id, neighborhood_id, create_event_id, polygon, num_us
 
 
 --
--- Name: neighborhood_polygon_id_seq; Type: SEQUENCE SET; Schema: public; Owner: jim
+-- Name: neighborhood_polygon_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('neighborhood_polygon_id_seq', 1578, true);
 
 
 --
--- Name: neighborhood_polygon_id_seq1; Type: SEQUENCE SET; Schema: public; Owner: jim
+-- Name: neighborhood_polygon_id_seq1; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('neighborhood_polygon_id_seq1', 948, true);
 
 
 --
--- Name: neighborhood_polygon_vote_id_seq; Type: SEQUENCE SET; Schema: public; Owner: jim
+-- Name: neighborhood_polygon_vote_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('neighborhood_polygon_vote_id_seq', 1, false);
 
 
 --
--- Data for Name: neighborhood_polygons_create_event; Type: TABLE DATA; Schema: public; Owner: jim
+-- Data for Name: neighborhood_polygons_create_event; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY neighborhood_polygons_create_event (id, description, test_point_meter_width, concave_hull_target_precision, date_time_created) FROM stdin;
@@ -11665,14 +11459,14 @@ COPY neighborhood_polygons_create_event (id, description, test_point_meter_width
 
 
 --
--- Name: neighborhood_polygons_create_event_id_seq; Type: SEQUENCE SET; Schema: public; Owner: jim
+-- Name: neighborhood_polygons_create_event_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('neighborhood_polygons_create_event_id_seq', 8, true);
 
 
 --
--- Data for Name: phila_city_limits; Type: TABLE DATA; Schema: public; Owner: jim
+-- Data for Name: phila_city_limits; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY phila_city_limits (ogc_fid, wkb_geometry, name, description, "timestamp", begin, "end", altitudemode, tessellate, extrude, visibility, draworder, icon, name2, description2, area, perimeter, citylmt_, citylmt_id) FROM stdin;
@@ -11681,7 +11475,7 @@ COPY phila_city_limits (ogc_fid, wkb_geometry, name, description, "timestamp", b
 
 
 --
--- Data for Name: phila_neighborhoods; Type: TABLE DATA; Schema: public; Owner: jim
+-- Data for Name: phila_neighborhoods; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY phila_neighborhoods (name, polygon) FROM stdin;
@@ -11847,7 +11641,7 @@ Yorktown	01030000000100000017000000625BC8BE14CA52C09CD15A9D76FD43408891CB3DBFC95
 
 
 --
--- Data for Name: polygon; Type: TABLE DATA; Schema: public; Owner: jim
+-- Data for Name: polygon; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY polygon (st_setsrid) FROM stdin;
@@ -11856,7 +11650,7 @@ COPY polygon (st_setsrid) FROM stdin;
 
 
 --
--- Data for Name: region; Type: TABLE DATA; Schema: public; Owner: jim
+-- Data for Name: region; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY region (id, name, center_point, border) FROM stdin;
@@ -11865,14 +11659,14 @@ COPY region (id, name, center_point, border) FROM stdin;
 
 
 --
--- Name: region_id_seq; Type: SEQUENCE SET; Schema: public; Owner: jim
+-- Name: region_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('region_id_seq', 1, true);
 
 
 --
--- Data for Name: spatial_ref_sys; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: spatial_ref_sys; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY spatial_ref_sys (srid, auth_name, auth_srid, srtext, proj4text) FROM stdin;
@@ -11880,7 +11674,7 @@ COPY spatial_ref_sys (srid, auth_name, auth_srid, srtext, proj4text) FROM stdin;
 
 
 --
--- Data for Name: test_point; Type: TABLE DATA; Schema: public; Owner: jim
+-- Data for Name: test_point; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY test_point (point, set_num, id) FROM stdin;
@@ -11888,7 +11682,7 @@ COPY test_point (point, set_num, id) FROM stdin;
 
 
 --
--- Data for Name: trans_ce_tp_up; Type: TABLE DATA; Schema: public; Owner: jim
+-- Data for Name: trans_ce_tp_up; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY trans_ce_tp_up (id, create_event_id, test_point_id, user_polygon_id) FROM stdin;
@@ -11896,14 +11690,14 @@ COPY trans_ce_tp_up (id, create_event_id, test_point_id, user_polygon_id) FROM s
 
 
 --
--- Name: trans_ce_tp_up_id_seq; Type: SEQUENCE SET; Schema: public; Owner: jim
+-- Name: trans_ce_tp_up_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('trans_ce_tp_up_id_seq', 1960151, true);
 
 
 --
--- Data for Name: trans_np_up; Type: TABLE DATA; Schema: public; Owner: jim
+-- Data for Name: trans_np_up; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY trans_np_up (id, create_event_id, np_id, up_id) FROM stdin;
@@ -14377,14 +14171,14 @@ COPY trans_np_up (id, create_event_id, np_id, up_id) FROM stdin;
 
 
 --
--- Name: trans_np_up_id_seq; Type: SEQUENCE SET; Schema: public; Owner: jim
+-- Name: trans_np_up_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('trans_np_up_id_seq', 2792, true);
 
 
 --
--- Data for Name: user_polygon; Type: TABLE DATA; Schema: public; Owner: jim
+-- Data for Name: user_polygon; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY user_polygon (id, neighborhood_id, region_id, whathood_user_id, date_time_added, polygon) FROM stdin;
@@ -14559,21 +14353,21 @@ COPY user_polygon (id, neighborhood_id, region_id, whathood_user_id, date_time_a
 
 
 --
--- Name: user_polygon_id_seq; Type: SEQUENCE SET; Schema: public; Owner: jim
+-- Name: user_polygon_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('user_polygon_id_seq', 181, true);
 
 
 --
--- Name: whathood_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: jim
+-- Name: whathood_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('whathood_user_id_seq', 6, true);
 
 
 --
--- Name: city_limits_pkey; Type: CONSTRAINT; Schema: public; Owner: jim; Tablespace: 
+-- Name: city_limits_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY phila_city_limits
@@ -14581,7 +14375,7 @@ ALTER TABLE ONLY phila_city_limits
 
 
 --
--- Name: contentious_point_pkey; Type: CONSTRAINT; Schema: public; Owner: jim; Tablespace: 
+-- Name: contentious_point_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY contentious_point
@@ -14589,7 +14383,7 @@ ALTER TABLE ONLY contentious_point
 
 
 --
--- Name: heat_map_test_point_pkey; Type: CONSTRAINT; Schema: public; Owner: jim; Tablespace: 
+-- Name: heat_map_test_point_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY test_point
@@ -14597,7 +14391,7 @@ ALTER TABLE ONLY test_point
 
 
 --
--- Name: neighborhood_pkey; Type: CONSTRAINT; Schema: public; Owner: jim; Tablespace: 
+-- Name: neighborhood_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY neighborhood
@@ -14605,7 +14399,7 @@ ALTER TABLE ONLY neighborhood
 
 
 --
--- Name: neighborhood_point_strength_of_identity_pkey; Type: CONSTRAINT; Schema: public; Owner: jim; Tablespace: 
+-- Name: neighborhood_point_strength_of_identity_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY neighborhood_point_strength_of_identity
@@ -14613,7 +14407,7 @@ ALTER TABLE ONLY neighborhood_point_strength_of_identity
 
 
 --
--- Name: neighborhood_polygon_pkey; Type: CONSTRAINT; Schema: public; Owner: jim; Tablespace: 
+-- Name: neighborhood_polygon_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY user_polygon
@@ -14621,7 +14415,7 @@ ALTER TABLE ONLY user_polygon
 
 
 --
--- Name: neighborhood_polygon_pkey1; Type: CONSTRAINT; Schema: public; Owner: jim; Tablespace: 
+-- Name: neighborhood_polygon_pkey1; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY neighborhood_polygon
@@ -14629,7 +14423,7 @@ ALTER TABLE ONLY neighborhood_polygon
 
 
 --
--- Name: neighborhood_polygons_create_event_pkey; Type: CONSTRAINT; Schema: public; Owner: jim; Tablespace: 
+-- Name: neighborhood_polygons_create_event_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY neighborhood_polygons_create_event
@@ -14637,7 +14431,7 @@ ALTER TABLE ONLY neighborhood_polygons_create_event
 
 
 --
--- Name: region_pkey; Type: CONSTRAINT; Schema: public; Owner: jim; Tablespace: 
+-- Name: region_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY region
@@ -14645,7 +14439,7 @@ ALTER TABLE ONLY region
 
 
 --
--- Name: trans_ce_tp_up_pkey; Type: CONSTRAINT; Schema: public; Owner: jim; Tablespace: 
+-- Name: trans_ce_tp_up_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY trans_ce_tp_up
@@ -14653,7 +14447,7 @@ ALTER TABLE ONLY trans_ce_tp_up
 
 
 --
--- Name: trans_np_up_pkey; Type: CONSTRAINT; Schema: public; Owner: jim; Tablespace: 
+-- Name: trans_np_up_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY trans_np_up
@@ -14661,196 +14455,196 @@ ALTER TABLE ONLY trans_np_up
 
 
 --
--- Name: city_limits_wkb_geometry_geom_idx; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: city_limits_wkb_geometry_geom_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX city_limits_wkb_geometry_geom_idx ON phila_city_limits USING gist (wkb_geometry);
 
 
 --
--- Name: cp_ce_tp; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: cp_ce_tp; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX cp_ce_tp ON contentious_point USING btree (create_event_id, test_point_id);
 
 
 --
--- Name: heat_map_test_point_idx; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: heat_map_test_point_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX heat_map_test_point_idx ON test_point USING gist (point);
 
 
 --
--- Name: idx_9a4430785219ebcc; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: idx_9a4430785219ebcc; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX idx_9a4430785219ebcc ON user_polygon USING btree (whathood_user_id);
 
 
 --
--- Name: idx_9a44307898260155; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: idx_9a44307898260155; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX idx_9a44307898260155 ON user_polygon USING btree (region_id);
 
 
 --
--- Name: idx_fef1e9ee98260155; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: idx_fef1e9ee98260155; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX idx_fef1e9ee98260155 ON neighborhood USING btree (region_id);
 
 
 --
--- Name: name_region_idx; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: name_region_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX name_region_idx ON neighborhood USING btree (name, region_id);
 
 
 --
--- Name: neighborhood_name_idx; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: neighborhood_name_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX neighborhood_name_idx ON my_temp_table USING btree (neighborhood_name);
 
 
 --
--- Name: neighborhood_name_test_point_id_idx; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: neighborhood_name_test_point_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX neighborhood_name_test_point_id_idx ON my_temp_table USING btree (test_point_id, neighborhood_name);
 
 
 --
--- Name: neighborhood_polygon_ce_n_idx; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: neighborhood_polygon_ce_n_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX neighborhood_polygon_ce_n_idx ON neighborhood_polygon USING btree (neighborhood_id, create_event_id);
 
 
 --
--- Name: np_neighborhood_id_idx; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: np_neighborhood_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX np_neighborhood_id_idx ON neighborhood_polygon USING btree (neighborhood_id);
 
 
 --
--- Name: npsoi_ce_id_idx; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: npsoi_ce_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX npsoi_ce_id_idx ON neighborhood_point_strength_of_identity USING btree (create_event_id);
 
 
 --
--- Name: npsoi_n_id_idx; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: npsoi_n_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX npsoi_n_id_idx ON neighborhood_point_strength_of_identity USING btree (neighborhood_id);
 
 
 --
--- Name: npsoi_soi_idx; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: npsoi_soi_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX npsoi_soi_idx ON neighborhood_point_strength_of_identity USING btree (strength_of_identity);
 
 
 --
--- Name: npsoi_tp_ce_idx; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: npsoi_tp_ce_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX npsoi_tp_ce_idx ON neighborhood_point_strength_of_identity USING btree (test_point_id, neighborhood_id, create_event_id);
 
 
 --
--- Name: npsoi_tp_id_idx; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: npsoi_tp_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX npsoi_tp_id_idx ON neighborhood_point_strength_of_identity USING btree (test_point_id);
 
 
 --
--- Name: region_border_idx; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: region_border_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX region_border_idx ON region USING gist (border);
 
 
 --
--- Name: region_name_idx; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: region_name_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX region_name_idx ON region USING btree (name);
 
 
 --
--- Name: test_point_id_idx; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: test_point_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX test_point_id_idx ON my_temp_table USING btree (test_point_id);
 
 
 --
--- Name: test_point_set_num_test_point_idx; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: test_point_set_num_test_point_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX test_point_set_num_test_point_idx ON test_point USING btree (set_num, point);
 
 
 --
--- Name: trans_np_up_neighborhood_polygon_id_idx; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: trans_np_up_neighborhood_polygon_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX trans_np_up_neighborhood_polygon_id_idx ON trans_np_up USING btree (np_id);
 
 
 --
--- Name: trans_np_up_user_polygon_id_idx; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: trans_np_up_user_polygon_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX trans_np_up_user_polygon_id_idx ON trans_np_up USING btree (create_event_id, np_id, up_id);
 
 
 --
--- Name: trans_np_up_user_polygon_idx; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: trans_np_up_user_polygon_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX trans_np_up_user_polygon_idx ON trans_np_up USING btree (up_id);
 
 
 --
--- Name: trans_tp_up_ceid_idx; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: trans_tp_up_ceid_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX trans_tp_up_ceid_idx ON trans_ce_tp_up USING btree (create_event_id);
 
 
 --
--- Name: trans_tp_up_ceid_tpid_upid; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: trans_tp_up_ceid_tpid_upid; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX trans_tp_up_ceid_tpid_upid ON trans_ce_tp_up USING btree (create_event_id, test_point_id, user_polygon_id);
 
 
 --
--- Name: trans_tp_up_tpid_idx; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: trans_tp_up_tpid_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX trans_tp_up_tpid_idx ON trans_ce_tp_up USING btree (test_point_id);
 
 
 --
--- Name: trans_tp_up_upid_idx; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: trans_tp_up_upid_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX trans_tp_up_upid_idx ON trans_ce_tp_up USING btree (user_polygon_id);
 
 
 --
--- Name: user_polygon_neighborhood_id_idx; Type: INDEX; Schema: public; Owner: jim; Tablespace: 
+-- Name: user_polygon_neighborhood_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX user_polygon_neighborhood_id_idx ON user_polygon USING btree (neighborhood_id);
@@ -14859,7 +14653,7 @@ CREATE INDEX user_polygon_neighborhood_id_idx ON user_polygon USING btree (neigh
 SET search_path = whathood, pg_catalog;
 
 --
--- Name: _RETURN; Type: RULE; Schema: whathood; Owner: jim
+-- Name: _RETURN; Type: RULE; Schema: whathood; Owner: -
 --
 
 CREATE RULE "_RETURN" AS
@@ -14878,7 +14672,7 @@ CREATE RULE "_RETURN" AS
 SET search_path = public, pg_catalog;
 
 --
--- Name: contentious_point_create_event_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: jim
+-- Name: contentious_point_create_event_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY contentious_point
@@ -14886,7 +14680,7 @@ ALTER TABLE ONLY contentious_point
 
 
 --
--- Name: fk_9a4430785219ebcc; Type: FK CONSTRAINT; Schema: public; Owner: jim
+-- Name: fk_9a4430785219ebcc; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_polygon
@@ -14894,7 +14688,7 @@ ALTER TABLE ONLY user_polygon
 
 
 --
--- Name: fk_9a443078803bb24b; Type: FK CONSTRAINT; Schema: public; Owner: jim
+-- Name: fk_9a443078803bb24b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_polygon
@@ -14902,7 +14696,7 @@ ALTER TABLE ONLY user_polygon
 
 
 --
--- Name: fk_9a44307898260155; Type: FK CONSTRAINT; Schema: public; Owner: jim
+-- Name: fk_9a44307898260155; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_polygon
@@ -14910,7 +14704,7 @@ ALTER TABLE ONLY user_polygon
 
 
 --
--- Name: fk_fef1e9ee98260155; Type: FK CONSTRAINT; Schema: public; Owner: jim
+-- Name: fk_fef1e9ee98260155; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY neighborhood
@@ -14918,7 +14712,7 @@ ALTER TABLE ONLY neighborhood
 
 
 --
--- Name: neighborhood_point_strength_of_identity_create_event_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: jim
+-- Name: neighborhood_point_strength_of_identity_create_event_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY neighborhood_point_strength_of_identity
@@ -14926,7 +14720,7 @@ ALTER TABLE ONLY neighborhood_point_strength_of_identity
 
 
 --
--- Name: neighborhood_point_strength_of_identity_neighborhood_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: jim
+-- Name: neighborhood_point_strength_of_identity_neighborhood_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY neighborhood_point_strength_of_identity
@@ -14934,7 +14728,7 @@ ALTER TABLE ONLY neighborhood_point_strength_of_identity
 
 
 --
--- Name: neighborhood_point_strength_of_identity_test_point_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: jim
+-- Name: neighborhood_point_strength_of_identity_test_point_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY neighborhood_point_strength_of_identity
@@ -14942,7 +14736,7 @@ ALTER TABLE ONLY neighborhood_point_strength_of_identity
 
 
 --
--- Name: neighborhood_polygon_create_event_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: jim
+-- Name: neighborhood_polygon_create_event_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY neighborhood_polygon
@@ -14950,7 +14744,7 @@ ALTER TABLE ONLY neighborhood_polygon
 
 
 --
--- Name: neighborhood_polygon_neighborhood_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: jim
+-- Name: neighborhood_polygon_neighborhood_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY neighborhood_polygon
@@ -14958,7 +14752,7 @@ ALTER TABLE ONLY neighborhood_polygon
 
 
 --
--- Name: trans_ce_tp_up_create_event_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: jim
+-- Name: trans_ce_tp_up_create_event_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY trans_ce_tp_up
@@ -14966,7 +14760,7 @@ ALTER TABLE ONLY trans_ce_tp_up
 
 
 --
--- Name: trans_ce_tp_up_test_point_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: jim
+-- Name: trans_ce_tp_up_test_point_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY trans_ce_tp_up
@@ -14974,7 +14768,7 @@ ALTER TABLE ONLY trans_ce_tp_up
 
 
 --
--- Name: trans_ce_tp_up_user_polygon_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: jim
+-- Name: trans_ce_tp_up_user_polygon_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY trans_ce_tp_up
@@ -14982,7 +14776,7 @@ ALTER TABLE ONLY trans_ce_tp_up
 
 
 --
--- Name: trans_np_up_create_event_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: jim
+-- Name: trans_np_up_create_event_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY trans_np_up
@@ -14990,7 +14784,7 @@ ALTER TABLE ONLY trans_np_up
 
 
 --
--- Name: trans_np_up_np_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: jim
+-- Name: trans_np_up_np_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY trans_np_up
@@ -14998,7 +14792,7 @@ ALTER TABLE ONLY trans_np_up
 
 
 --
--- Name: trans_np_up_up_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: jim
+-- Name: trans_np_up_up_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY trans_np_up
@@ -15006,7 +14800,7 @@ ALTER TABLE ONLY trans_np_up
 
 
 --
--- Name: public; Type: ACL; Schema: -; Owner: postgres
+-- Name: public; Type: ACL; Schema: -; Owner: -
 --
 
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
@@ -15016,7 +14810,7 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --
--- Name: whathood; Type: ACL; Schema: -; Owner: jim
+-- Name: whathood; Type: ACL; Schema: -; Owner: -
 --
 
 REVOKE ALL ON SCHEMA whathood FROM PUBLIC;
@@ -15025,7 +14819,7 @@ GRANT ALL ON SCHEMA whathood TO jim;
 
 
 --
--- Name: user_polygon; Type: ACL; Schema: public; Owner: jim
+-- Name: user_polygon; Type: ACL; Schema: public; Owner: -
 --
 
 REVOKE ALL ON TABLE user_polygon FROM PUBLIC;
@@ -15034,7 +14828,7 @@ GRANT ALL ON TABLE user_polygon TO jim;
 
 
 --
--- Name: neighborhood_polygons_create_event; Type: ACL; Schema: public; Owner: jim
+-- Name: neighborhood_polygons_create_event; Type: ACL; Schema: public; Owner: -
 --
 
 REVOKE ALL ON TABLE neighborhood_polygons_create_event FROM PUBLIC;
@@ -15043,7 +14837,7 @@ GRANT ALL ON TABLE neighborhood_polygons_create_event TO jim;
 
 
 --
--- Name: neighborhood_polygon; Type: ACL; Schema: public; Owner: jim
+-- Name: neighborhood_polygon; Type: ACL; Schema: public; Owner: -
 --
 
 REVOKE ALL ON TABLE neighborhood_polygon FROM PUBLIC;
@@ -15052,7 +14846,7 @@ GRANT ALL ON TABLE neighborhood_polygon TO jim;
 
 
 --
--- Name: phila_city_limits; Type: ACL; Schema: public; Owner: jim
+-- Name: phila_city_limits; Type: ACL; Schema: public; Owner: -
 --
 
 REVOKE ALL ON TABLE phila_city_limits FROM PUBLIC;
@@ -15061,7 +14855,7 @@ GRANT ALL ON TABLE phila_city_limits TO jim;
 
 
 --
--- Name: contentious_point; Type: ACL; Schema: public; Owner: jim
+-- Name: contentious_point; Type: ACL; Schema: public; Owner: -
 --
 
 REVOKE ALL ON TABLE contentious_point FROM PUBLIC;
@@ -15070,7 +14864,7 @@ GRANT ALL ON TABLE contentious_point TO jim;
 
 
 --
--- Name: test_point; Type: ACL; Schema: public; Owner: jim
+-- Name: test_point; Type: ACL; Schema: public; Owner: -
 --
 
 REVOKE ALL ON TABLE test_point FROM PUBLIC;
@@ -15079,7 +14873,7 @@ GRANT ALL ON TABLE test_point TO jim;
 
 
 --
--- Name: neighborhood; Type: ACL; Schema: public; Owner: jim
+-- Name: neighborhood; Type: ACL; Schema: public; Owner: -
 --
 
 REVOKE ALL ON TABLE neighborhood FROM PUBLIC;
@@ -15088,7 +14882,7 @@ GRANT ALL ON TABLE neighborhood TO jim;
 
 
 --
--- Name: neighborhood_point_strength_of_identity; Type: ACL; Schema: public; Owner: jim
+-- Name: neighborhood_point_strength_of_identity; Type: ACL; Schema: public; Owner: -
 --
 
 REVOKE ALL ON TABLE neighborhood_point_strength_of_identity FROM PUBLIC;
@@ -15097,7 +14891,7 @@ GRANT ALL ON TABLE neighborhood_point_strength_of_identity TO jim;
 
 
 --
--- Name: phila_neighborhoods; Type: ACL; Schema: public; Owner: jim
+-- Name: phila_neighborhoods; Type: ACL; Schema: public; Owner: -
 --
 
 REVOKE ALL ON TABLE phila_neighborhoods FROM PUBLIC;
@@ -15106,7 +14900,7 @@ GRANT ALL ON TABLE phila_neighborhoods TO jim;
 
 
 --
--- Name: polygon; Type: ACL; Schema: public; Owner: jim
+-- Name: polygon; Type: ACL; Schema: public; Owner: -
 --
 
 REVOKE ALL ON TABLE polygon FROM PUBLIC;
@@ -15115,7 +14909,7 @@ GRANT ALL ON TABLE polygon TO jim;
 
 
 --
--- Name: region; Type: ACL; Schema: public; Owner: jim
+-- Name: region; Type: ACL; Schema: public; Owner: -
 --
 
 REVOKE ALL ON TABLE region FROM PUBLIC;
@@ -15124,7 +14918,7 @@ GRANT ALL ON TABLE region TO jim;
 
 
 --
--- Name: show_test_point_info; Type: ACL; Schema: public; Owner: jim
+-- Name: show_test_point_info; Type: ACL; Schema: public; Owner: -
 --
 
 REVOKE ALL ON TABLE show_test_point_info FROM PUBLIC;
@@ -15133,7 +14927,7 @@ GRANT ALL ON TABLE show_test_point_info TO jim;
 
 
 --
--- Name: trans_ce_tp_up; Type: ACL; Schema: public; Owner: jim
+-- Name: trans_ce_tp_up; Type: ACL; Schema: public; Owner: -
 --
 
 REVOKE ALL ON TABLE trans_ce_tp_up FROM PUBLIC;
@@ -15142,7 +14936,7 @@ GRANT ALL ON TABLE trans_ce_tp_up TO jim;
 
 
 --
--- Name: trans_np_up; Type: ACL; Schema: public; Owner: jim
+-- Name: trans_np_up; Type: ACL; Schema: public; Owner: -
 --
 
 REVOKE ALL ON TABLE trans_np_up FROM PUBLIC;
@@ -15153,7 +14947,7 @@ GRANT ALL ON TABLE trans_np_up TO jim;
 SET search_path = whathood, pg_catalog;
 
 --
--- Name: np_w_up_count; Type: ACL; Schema: whathood; Owner: jim
+-- Name: np_w_up_count; Type: ACL; Schema: whathood; Owner: -
 --
 
 REVOKE ALL ON TABLE np_w_up_count FROM PUBLIC;
