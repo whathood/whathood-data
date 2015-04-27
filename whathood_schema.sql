@@ -10,6 +10,13 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
+-- Name: whathood; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA whathood;
+
+
+--
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -39,9 +46,417 @@ COMMENT ON EXTENSION postgis IS 'PostGIS geometry, geography, and raster spatial
 
 SET search_path = public, pg_catalog;
 
+--
+-- Name: polygon_counts_result; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE polygon_counts_result AS (
+	point_as_text text,
+	test_neighborhood_name text,
+	point geometry,
+	neighborhood_names text,
+	num_in_neighborhood integer,
+	total_user_polygons integer,
+	strength_of_identity double precision,
+	dominant_neighborhood_id integer
+);
+
+
+SET search_path = whathood, pg_catalog;
+
+--
+-- Name: neighborhood_counts_by_point_result; Type: TYPE; Schema: whathood; Owner: -
+--
+
+CREATE TYPE neighborhood_counts_by_point_result AS (
+	neighborhood_name character varying(255),
+	neighborhood_id integer,
+	total_user_polygons bigint
+);
+
+
+SET search_path = public, pg_catalog;
+
+--
+-- Name: delete_user_polygon(integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION delete_user_polygon(_up_id integer) RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+
+  IF ( SELECT 1 FROM user_polygon WHERE id = _up_id LIMIT 1 ) THEN
+    DELETE FROM trans_tp_up WHERE user_polygon_id = _up_id;
+    DELETE FROM trans_np_up WHERE up_id = _up_id;
+    DELETE FROM user_polygon WHERE id = _up_id;
+
+    RAISE NOTICE 'you must re-run the process to build neighborhood_polygons';
+  ELSE
+    RAISE EXCEPTION 'user_polygon with id % does not exist',test_up_id;
+  END IF;
+
+END;
+$$;
+
+
+SET search_path = whathood, pg_catalog;
+
+--
+-- Name: create_contentious_points(integer); Type: FUNCTION; Schema: whathood; Owner: -
+--
+
+CREATE FUNCTION create_contentious_points(_create_event_id integer) RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+  INSERT INTO contentious_point( create_event_id, test_point_id, point, strength_of_identity ) (
+    SELECT DISTINCT
+      _create_event_id,
+      test_point.id,
+      test_point.point,
+      a.strength_of_identity
+    FROM
+      neighborhood_point_strength_of_identity a,
+      neighborhood_point_strength_of_identity b,
+      test_point
+
+    WHERE
+      test_point.id = a.test_point_id
+      AND  a.id <> b.id
+      AND a.test_point_id = b.test_point_id
+      AND a.strength_of_identity = b.strength_of_identity
+      AND a.create_event_id = _create_event_id
+      AND a.create_event_id = b.create_event_id
+    GROUP BY test_point.id,a.strength_of_identity,test_point.point
+  );
+END;
+$$;
+
+
+--
+-- Name: gather_test_point_counts(public.geometry[], integer); Type: FUNCTION; Schema: whathood; Owner: -
+--
+
+CREATE FUNCTION gather_test_point_counts(test_points public.geometry[], _neighborhood_id integer) RETURNS SETOF public.polygon_counts_result
+    LANGUAGE plpgsql
+    AS $$
+  DECLARE
+    _test_point geometry;
+    _r polygon_counts_result%rowtype;
+    _polygon_count_result_array polygon_counts_result[];
+    _polygon_counts_result polygon_counts_result;
+  BEGIN
+
+    FOREACH _test_point IN ARRAY test_points LOOP
+      SELECT * INTO _r
+      FROM whathood.polygon_counts(_test_point,_neighborhood_id);
+      RETURN NEXT _r;
+   END LOOP;
+  END;
+$$;
+
+
+--
+-- Name: get_dominant_neighborhood(public.geometry); Type: FUNCTION; Schema: whathood; Owner: -
+--
+
+CREATE FUNCTION get_dominant_neighborhood(_test_point public.geometry) RETURNS integer
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+  _total integer;
+  _max_user_polygons integer;
+  _neighborhood_id integer;
+BEGIN
+  SELECT MAX(total_user_polygons) INTO _max_user_polygons
+  FROM whathood.neighborhood_counts_by_point(_test_point);
+
+  SELECT COUNT(*) INTO _total
+  FROM whathood.neighborhood_counts_by_point(_test_point)
+  WHERE total_user_polygons = _max_user_polygons;
+
+  IF _total = 0 THEN
+    RETURN 0;
+  ELSIF _total = 1 THEN
+    SELECT a.neighborhood_id INTO _neighborhood_id FROM whathood.neighborhood_counts_by_point(_test_point) a;
+    RETURN _neighborhood_id;
+  ELSE
+    RETURN -1;
+  END IF;
+END;
+$$;
+
+
+--
+-- Name: latest_neighborhoods_geojson(integer); Type: FUNCTION; Schema: whathood; Owner: -
+--
+
+CREATE FUNCTION latest_neighborhoods_geojson(test_region_id integer) RETURNS character varying
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+  geojson varchar;
+BEGIN
+  SELECT row_to_json( fc ) INTO geojson
+    FROM ( SELECT 'FeatureCollection' as type, array_to_json(array_agg(f)) as features
+    FROM( SELECT 'Feature' as type
+      , ST_AsGeoJSON( slnp.polygon)::json AS geometry
+      , row_to_json(
+        (SELECT l FROM ( SELECT name,slnp.id) AS l)
+      ) AS properties
+  FROM latest_neighborhoods slnp
+    INNER JOIN neighborhood
+      ON slnp.neighborhood_id = neighborhood.id ) as f ) as fc;
+  RETURN geojson;
+END;
+$$;
+
+
+--
+-- Name: makegrid_2d(public.geometry, numeric); Type: FUNCTION; Schema: whathood; Owner: -
+--
+
+CREATE FUNCTION makegrid_2d(bound_polygon public.geometry, grid_step numeric) RETURNS public.geometry[]
+    LANGUAGE plpgsql
+    AS $_$
+DECLARE
+  BoundM public.geometry; --Bound polygon transformed to metric projection (with metric_srid SRID)
+  Xmin DOUBLE PRECISION;
+  Xmax DOUBLE PRECISION;
+  Ymax DOUBLE PRECISION;
+  X DOUBLE PRECISION;
+  Y DOUBLE PRECISION;
+  point geometry;
+  points geometry[];
+  i INTEGER;
+  j INTEGER;
+  count INTEGER = 0;
+BEGIN
+  BoundM := $1;
+  Xmin := ST_XMin(BoundM);
+  Xmax := ST_XMax(BoundM);
+  Ymax := ST_YMax(BoundM);
+
+  Y := ST_YMin(BoundM); --current sector's corner coordinate
+  <<yloop>>
+  LOOP
+    IF (Y > Ymax) THEN  --Better if generating polygons exceeds bound for one step. You always can crop the result. But if not you may get not quite correct data for outbound polygons (if you calculate frequency per a sector  e.g.)
+        EXIT;
+    END IF;
+
+    X := Xmin;
+    <<xloop>>
+    LOOP
+      IF (X > Xmax) THEN
+          EXIT;
+      END IF;
+      point := ST_SetSRID(ST_Point(X,Y), 4326);
+
+      -- we only want points that are inside the bound_polygon
+      IF( SELECT ST_Contains( bound_polygon,point) = true ) THEN
+        points := array_append(points,point);
+        count := count + 1;
+      END IF;
+      X := X + grid_step;
+    END LOOP xloop;
+    Y := Y + grid_step;
+  END LOOP yloop;
+
+  RETURN points;
+END;
+$_$;
+
+
+--
+-- Name: neighborhood_counts_by_point(public.geometry); Type: FUNCTION; Schema: whathood; Owner: -
+--
+
+CREATE FUNCTION neighborhood_counts_by_point(_test_point public.geometry) RETURNS SETOF neighborhood_counts_by_point_result
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+  RETURN QUERY SELECT
+    neighborhood_name,
+    neighborhood_id,
+    COUNT(*) total_user_polygons
+  FROM whathood.user_polygon_test_point c1
+  WHERE
+    ST_Contains(c1.polygon,_test_point)
+  GROUP BY
+    neighborhood_name,
+    neighborhood_id
+  ORDER BY total_user_polygons DESC;
+END;
+$$;
+
+
+--
+-- Name: neighborhood_point_geometry(integer, public.geometry, numeric); Type: FUNCTION; Schema: whathood; Owner: -
+--
+
+CREATE FUNCTION neighborhood_point_geometry(_neighborhood_id integer, _user_polygon_bound public.geometry, _grid_resolution numeric) RETURNS public.geometry
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+BEGIN
+  RETURN ST_Collect(point) FROM whathood.neighborhood_point_info(_neighborhood_id,_user_polygon_bound,_grid_resolution); 
+END;
+$$;
+
+
+--
+-- Name: neighborhood_point_info(integer, public.geometry, numeric); Type: FUNCTION; Schema: whathood; Owner: -
+--
+
+CREATE FUNCTION neighborhood_point_info(_neighborhood_id integer, _user_polygon_bound public.geometry, _grid_resolution numeric) RETURNS SETOF public.polygon_counts_result
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+BEGIN
+  RETURN QUERY SELECT
+    (whathood.gather_test_point_counts(
+      whathood.makegrid_2d(
+        _user_polygon_bound,
+        _grid_resolution
+      ),
+      _neighborhood_id
+    )).*
+  ;
+END;
+$$;
+
+
+--
+-- Name: polygon_counts(public.geometry, integer); Type: FUNCTION; Schema: whathood; Owner: -
+--
+
+CREATE FUNCTION polygon_counts(_test_point public.geometry, _neighborhood_id integer) RETURNS public.polygon_counts_result
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+  _point_as_text text;
+  _test_neighborhood_name text;
+  _ret_val polygon_counts_result%rowtype;
+  _neighborhood_name_arr text[];
+  _neighborhood_names text;
+  _num_in_neighborhood integer;
+  _total_user_polygons integer;
+  _dominant_neighborhood_id integer;
+BEGIN
+
+  SELECT name INTO _ret_val.test_neighborhood_name FROM neighborhood WHERE id = _neighborhood_id;
+
+  --
+  --
+  --
+  SELECT COUNT(*) INTO _num_in_neighborhood
+  FROM user_polygon up
+  WHERE
+    neighborhood_id = _neighborhood_id
+    AND ST_Contains(up.polygon,_test_point) = 'true';
+
+  --
+  -- get the names of the neighborhoods this test point is in
+  --
+  SELECT
+    array_agg(neighborhood_name) INTO _neighborhood_name_arr
+  FROM
+    whathood.user_polygon_test_point
+  WHERE
+    ST_Contains(polygon,_test_point);
+
+  --
+  --
+  --
+  SELECT COUNT(*) INTO _total_user_polygons
+  FROM user_polygon up
+  WHERE
+    ST_Contains(up.polygon,_test_point) = 'true';
+
+  --
+  --
+  --
+  SELECT ST_AsText(_test_point) INTO _point_as_text;
+
+  --
+  --
+  --
+  SELECT whathood.get_dominant_neighborhood(_test_point)
+  INTO _dominant_neighborhood_id;
+
+  IF _total_user_polygons = 0 THEN
+    _ret_val.strength_of_identity := 0;
+  ELSE
+    _ret_val.strength_of_identity := cast(_num_in_neighborhood as double precision)/cast(_total_user_polygons as double precision);
+  END IF;
+
+  _ret_val.point_as_text        := _point_as_text;
+  _ret_val.point                := _test_point;
+  _ret_val.num_in_neighborhood  := _num_in_neighborhood;
+  _ret_val.total_user_polygons  := _total_user_polygons;
+  _ret_val.neighborhood_names   := array_to_string(_neighborhood_name_arr,';');
+  _ret_val.dominant_neighborhood_id := _dominant_neighborhood_id;
+
+  RETURN _ret_val;
+END;
+$$;
+
+
+--
+-- Name: post_create_neighborhood_border(public.geometry); Type: FUNCTION; Schema: whathood; Owner: -
+--
+
+CREATE FUNCTION post_create_neighborhood_border(_collected_points public.geometry) RETURNS text
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+BEGIN
+
+
+END;
+$$;
+
+
+SET search_path = public, pg_catalog;
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
+
+--
+-- Name: neighborhood_polygon; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE neighborhood_polygon (
+    id integer NOT NULL,
+    neighborhood_id integer NOT NULL,
+    polygon geometry NOT NULL,
+    created_at timestamp(0) with time zone NOT NULL
+);
+
+
+--
+-- Name: COLUMN neighborhood_polygon.polygon; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN neighborhood_polygon.polygon IS '(DC2Type:geometry)';
+
+
+--
+-- Name: latest_neighborhoods; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW latest_neighborhoods AS
+ SELECT np.id,
+    np.neighborhood_id,
+    np.polygon,
+    np.created_at
+   FROM neighborhood_polygon np
+  WHERE (np.id IN ( SELECT max(neighborhood_polygon.id) AS id_max
+           FROM neighborhood_polygon
+          GROUP BY neighborhood_polygon.neighborhood_id));
+
 
 --
 -- Name: neighborhood; Type: TABLE; Schema: public; Owner: -; Tablespace: 
@@ -66,25 +481,6 @@ CREATE SEQUENCE neighborhood_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
-
---
--- Name: neighborhood_polygon; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE neighborhood_polygon (
-    id integer NOT NULL,
-    neighborhood_id integer NOT NULL,
-    polygon geometry NOT NULL,
-    created_at timestamp(0) with time zone NOT NULL
-);
-
-
---
--- Name: COLUMN neighborhood_polygon.polygon; Type: COMMENT; Schema: public; Owner: -
---
-
-COMMENT ON COLUMN neighborhood_polygon.polygon IS '(DC2Type:geometry)';
 
 
 --
@@ -245,6 +641,23 @@ CREATE SEQUENCE whathood_user_id_seq
     NO MAXVALUE
     CACHE 1;
 
+
+SET search_path = whathood, pg_catalog;
+
+--
+-- Name: user_polygon_test_point; Type: VIEW; Schema: whathood; Owner: -
+--
+
+CREATE VIEW user_polygon_test_point AS
+ SELECT up.id AS user_polygon_id,
+    up.polygon,
+    n.name AS neighborhood_name,
+    n.id AS neighborhood_id
+   FROM (public.user_polygon up
+     JOIN public.neighborhood n ON ((n.id = up.neighborhood_id)));
+
+
+SET search_path = public, pg_catalog;
 
 --
 -- Name: neighborhood_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
