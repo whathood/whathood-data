@@ -8287,6 +8287,38 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: heatmap_point; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE heatmap_point (
+    id integer NOT NULL,
+    neighborhood_id integer NOT NULL,
+    point geometry NOT NULL,
+    percentage double precision NOT NULL,
+    created_at timestamp(0) with time zone NOT NULL
+);
+
+
+--
+-- Name: COLUMN heatmap_point.point; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN heatmap_point.point IS '(DC2Type:geometry)';
+
+
+--
+-- Name: heatmap_point_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE heatmap_point_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
 -- Name: neighborhood_polygon; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -8540,6 +8572,14 @@ CREATE VIEW user_polygon_test_point AS
 SET search_path = public, pg_catalog;
 
 --
+-- Name: heatmap_point_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY heatmap_point
+    ADD CONSTRAINT heatmap_point_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: neighborhood_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -8648,6 +8688,13 @@ CREATE INDEX idx_51498a8ed60322ac ON users_roles USING btree (role_id);
 
 
 --
+-- Name: idx_54d79055803bb24b; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX idx_54d79055803bb24b ON heatmap_point USING btree (neighborhood_id);
+
+
+--
 -- Name: idx_57698a6a727aca70; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -8687,27 +8734,6 @@ CREATE INDEX idx_9fa93f1898260155 ON user_polygon USING btree (region_id);
 --
 
 CREATE INDEX idx_fef1e9ee98260155 ON neighborhood USING btree (region_id);
-
-
---
--- Name: idx_neighborhood_polygon_polygon; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX idx_neighborhood_polygon_polygon ON neighborhood_polygon USING gist (polygon);
-
-
---
--- Name: idx_up_np_pair; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX idx_up_np_pair ON up_np USING btree (np_id, up_id);
-
-
---
--- Name: idx_user_polygon_polygon; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX idx_user_polygon_polygon ON user_polygon USING gist (polygon);
 
 
 --
@@ -8806,6 +8832,14 @@ ALTER TABLE ONLY users_roles
 
 ALTER TABLE ONLY users_roles
     ADD CONSTRAINT fk_51498a8ed60322ac FOREIGN KEY (role_id) REFERENCES role(id);
+
+
+--
+-- Name: fk_54d79055803bb24b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY heatmap_point
+    ADD CONSTRAINT fk_54d79055803bb24b FOREIGN KEY (neighborhood_id) REFERENCES neighborhood(id);
 
 
 --
