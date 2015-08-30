@@ -685,6 +685,43 @@ CREATE SEQUENCE neighborhood_polygon_id_seq
 
 
 --
+-- Name: queue_default; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE queue_default (
+    id integer NOT NULL,
+    queue character varying(64) NOT NULL,
+    data text NOT NULL,
+    status smallint NOT NULL,
+    created timestamp(0) without time zone NOT NULL,
+    scheduled timestamp(0) without time zone NOT NULL,
+    executed timestamp(0) without time zone DEFAULT NULL::timestamp without time zone,
+    finished timestamp(0) without time zone DEFAULT NULL::timestamp without time zone,
+    message text,
+    trace text
+);
+
+
+--
+-- Name: queue_default_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE queue_default_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: queue_default_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE queue_default_id_seq OWNED BY queue_default.id;
+
+
+--
 -- Name: region; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -849,6 +886,13 @@ CREATE VIEW user_polygon_test_point AS
 SET search_path = public, pg_catalog;
 
 --
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY queue_default ALTER COLUMN id SET DEFAULT nextval('queue_default_id_seq'::regclass);
+
+
+--
 -- Name: heatmap_point_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -870,6 +914,14 @@ ALTER TABLE ONLY neighborhood
 
 ALTER TABLE ONLY neighborhood_polygon
     ADD CONSTRAINT neighborhood_polygon_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: queue_default_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY queue_default
+    ADD CONSTRAINT queue_default_pkey PRIMARY KEY (id);
 
 
 --
@@ -1006,31 +1058,17 @@ CREATE INDEX idx_fef1e9ee98260155 ON neighborhood USING btree (region_id);
 
 
 --
--- Name: idx_neighborhood_polygon_polygon; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX idx_neighborhood_polygon_polygon ON neighborhood_polygon USING gist (polygon);
-
-
---
--- Name: idx_up_np_pair; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX idx_up_np_pair ON up_np USING btree (np_id, up_id);
-
-
---
--- Name: idx_user_polygon_polygon; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX idx_user_polygon_polygon ON user_polygon USING gist (polygon);
-
-
---
 -- Name: name_region_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX name_region_idx ON neighborhood USING btree (name, region_id);
+
+
+--
+-- Name: queue_default_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX queue_default_idx ON queue_default USING btree (id, status);
 
 
 --
